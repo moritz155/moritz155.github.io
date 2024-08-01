@@ -28,7 +28,7 @@ jobs:
       run: |
         mkdir -p docs
         mv swagger-ui/swagger-ui-4.1.0/dist/* docs/
-        rm -rf swagger-uiv5.17.14.zip
+        rm -rf swagger-ui v5.17.14.zip
 
     - name: Create index.html
       run: |
