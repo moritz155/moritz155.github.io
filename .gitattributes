@@ -1,0 +1,1 @@
+echo "*.yaml text eol=lf" >> .gitattributes
