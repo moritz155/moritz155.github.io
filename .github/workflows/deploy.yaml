@@ -1,4 +1,5 @@
 name: Deploy Swagger UI
+
 on:
   push:
     branches:
@@ -16,6 +17,11 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '14'
+
+    - name: Verify OpenAPI YAML syntax
+      run: |
+        yamllint openapi.yaml
+        cp openapi.yaml openapi_copy.yaml
 
     - name: Download Swagger UI
       run: wget https://github.com/swagger-api/swagger-ui/archive/refs/tags/v4.1.0.zip
@@ -87,7 +93,7 @@ jobs:
         EOT
 
     - name: Copy OpenAPI YAML file
-      run: cp openapi.yaml docs/
+      run: cp openapi_copy.yaml docs/openapi.yaml
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
