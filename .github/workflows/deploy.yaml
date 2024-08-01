@@ -22,7 +22,7 @@ jobs:
       run: wget https://github.com/swagger-api/swagger-ui/archive/refs/tags/v5.17.14.zip
 
     - name: Unzip Swagger UI
-      run: unzipv5.17.14.zip -d swagger-ui
+      run: unzip v5.17.14.zip -d swagger-ui
 
     - name: Move Swagger UI to docs
       run: |
