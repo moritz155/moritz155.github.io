@@ -175,6 +175,46 @@ paths:
                   error:
                     type: string
                     example: Error message
+    post:
+      summary: Add a new log message to the database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                timestamp:
+                  type: integer
+                  format: int64
+                  example: 1625077800
+                message:
+                  type: string
+                  example: "Log entry"
+      responses:
+        '201':
+          description: Log message added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  id:
+                    type: integer
+                    example: 123
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error message
   /cn5g/telemetry:
     get:
       summary: Get health data from the database within a specified time interval
@@ -216,6 +256,43 @@ paths:
                     payload:
                       type: object
                       example: {"healthStatus": "Good"}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Error message
+    post:
+      summary: Add a new health message to the database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                timestamp:
+                  type: integer
+                  format: int64
+                  example: 1625077800
+                healthStatus:
+                  type: string
+                  example: "Good"
+      responses:
+        '201':
+          description: Health message added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Message added successfully
         '500':
           description: Internal server error
           content:
@@ -282,43 +359,6 @@ paths:
                   error:
                     type: string
                     example: Error message
-  /ues:
-    get:
-      summary: Get a list of unique UE IDs from telemetry data within a specified time interval
-      parameters:
-        - name: timeStart
-          in: query
-          schema:
-            type: integer
-            format: int64
-            example: 1625077800
-        - name: timeEnd
-          in: query
-          schema:
-            type: integer
-            format: int64
-            example: 1625081400
-      responses:
-        '200':
-          description: List of unique UE IDs
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: integer
-                  example: 1
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: Error message
-  /gnb/telemetry:
     post:
       summary: Add a new telemetry message to the database
       requestBody:
@@ -359,112 +399,3 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: Invalid payload
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: Error message
-  /gnb/logs:
-    post:
-      summary: Add a new log message to the database
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                timestamp:
-                  type: integer
-                  format: int64
-                  example: 1625077800
-                message:
-                  type: string
-                  example: "Log entry"
-      responses:
-        '201':
-          description: Log message added successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  id:
-                    type: integer
-                    example: 123
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: Error message
-  /cn5g/telemetry:
-    post:
-      summary: Add a new health message to the database
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                timestamp:
-                  type: integer
-                  format: int64
-                  example: 1625077800
-                healthStatus:
-                  type: string
-                  example: "Good"
-      responses:
-        '201':
-          description: Health message added successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Message added successfully
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: Error message
-components:
-  schemas:
-    Message:
-      type: object
-      properties:
-        timestamp:
-          type: integer
-          format: int64
-          example: 1625077800
-        destination:
-          type: string
-          example: gnb.logs
-        payload:
-          type: object
-          example: {"message": "Log entry"}
